@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 0.5.2
+
+### Patch Changes
+
+- 5135ce8: 优化文档
+
 ## 0.5.1
 
 ### Patch Changes
