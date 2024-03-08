@@ -15,6 +15,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -27,7 +28,8 @@
     "rollup-plugin-uglify": "^6.0.4",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.11",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "rollup-plugin-dts": "^6.1.0"
   },
   "scripts": {
     "doc": "typedoc",
@@ -41,9 +43,6 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "rollup-plugin-dts": "^6.1.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/luoanb/hook-form-react.git"
