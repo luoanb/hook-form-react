@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 0.5.3
+
+### Patch Changes
+
+- 添加类型声明
+
 ## 0.5.2
 
 ### Patch Changes
