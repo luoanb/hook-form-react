@@ -3,12 +3,10 @@ import { useObjectData } from './useObjectData'
 
 /**
  * 验证规则
- *
  */
-type IVerificationItem<V> = Partial<{
+export type IVerificationItem<V> = Partial<{
   /**
-   * 正则
-   * @description 同时设置了execute和regex的情况下,需要两个都验证通过才算通过
+   * @description 正则 同时设置了execute和regex的情况下,需要两个都验证通过才算通过
    **/
   regex: RegExp
   /**
@@ -18,13 +16,16 @@ type IVerificationItem<V> = Partial<{
    * @returns 是否正确: true:正确, false:错误
    */
   execute: (value: V) => Promise<boolean>
+  /**
+   * 错误提示
+   */
   msg: React.ReactNode
 }>
 
 /**
  * 错误
  */
-type IError = {
+export type IError = {
   /**
    * 是否错误
    */
@@ -46,7 +47,7 @@ export type IErrors<T> = Partial<Record<keyof T, IError>>
 /**
  * 单值验证规则数组
  */
-type IVerification<V> = Array<IVerificationItem<V>>
+export type IVerification<V> = Array<IVerificationItem<V>>
 /**
  * 表单验证规则集合
  */

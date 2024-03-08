@@ -5,6 +5,7 @@
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/react": "^18.2.64",
@@ -14,18 +15,29 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "rollup-plugin-uglify": "^6.0.4",
     "tslib": "^2.6.2",
+    "typedoc": "^0.25.11",
     "typescript": "^5.2.2"
   },
   "scripts": {
+    "doc": "typedoc",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "test": "node test/test.js",
-    "pretest": "pnpm run build"
+    "pretest": "pnpm run build",
+    "cha": "changeset",
+    "pub": "changeset version & changeset publish"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
     "rollup-plugin-dts": "^6.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luoanb/hook-form-react.git"
+  },
+  "author": "luoanbing",
+  "email": "luoanb@163.com",
+  "license": "MIT"
 }

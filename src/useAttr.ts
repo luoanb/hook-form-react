@@ -7,6 +7,9 @@ export type IuseAttr<T, K extends keyof T = keyof T> = {
   pushValue: (key: K, value: T[K]) => void
 }
 
+/**
+ * 绑定自定义组件的上下文信息
+ */
 export type RenderAttrProps<V = unknown> = {
   isError: boolean | undefined
   msg: React.ReactNode
@@ -14,10 +17,13 @@ export type RenderAttrProps<V = unknown> = {
   setValue: (value: V) => void
 }
 
+/**
+ * 自定义组件绑定的类型
+ */
 export type RenderAttr<R, V> = (props: RenderAttrProps<V>) => R
 
 /**
- * NextUI组件表单快速绑定
+ * 组件表单快速绑定
  */
 export const useAttr = <T, K extends keyof T = keyof T>({
   value,

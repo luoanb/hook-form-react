@@ -1,0 +1,11 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "./docs",
+  "name": "Hook Form React",
+  "theme": "default",
+  "exclude": ["**/test/**/*"],
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "includeVersion": true
+}

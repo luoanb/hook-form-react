@@ -1,7 +1,7 @@
-import { RenderAttrProps } from "./useAttr"
+import { RenderAttrProps } from './useAttr'
 
 /**
- * NextUI 2.2 版本快速填写
+ * NextUI 2.2 绑定组件属性 快速填写
  */
 export class NextUI_2_2 {
   /**
