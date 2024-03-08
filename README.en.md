@@ -30,8 +30,12 @@ npm i hook-form-react
 
 ## Usage
 
+### Basic usage
+
+In principle, it can adapt to all React component libraries, although this slightly increases the amount of code.
+
 ```typescript
-// Basic usage
+// Basic usage: In principle, it can adapt to all React component libraries, although this slightly increases the amount of code.
 import { useAttr, useFormData } from 'hook-form-react'
 // Using NextUI
 import { Button, Input, Link } from '@nextui-org/react'
@@ -86,6 +90,83 @@ const Example = () => {
         errorMessage={formData.errors.password?.msg}
         onChange={(e) => formData.pushValue('password', e.target.value)}
       ></Input>
+      <Button onClick={submit}>Login</Button>
+    </div>
+  )
+}
+```
+
+### Advanced Usage
+
+Providing Utility Tools for Faster Development Without Losing Customizability
+
+```typescript
+// Advanced Usage: Providing Utility Tools for Faster Development Without Losing Customizability
+
+import { Button, Input } from '@nextui-org/react'
+import { useAttr, useFormData, Verifications } from 'hook-form-react'
+
+export const Example = () => {
+  const formData = useFormData(
+    { password: '', username: '' },
+    {
+      // Supports multiple validations
+      password: [
+        // Built-in validator for required field validation
+        // Developers can also add other validation rules in their projects, see the developer documentation for details (to be added)
+        Verifications.required,
+        // Built-in validator for password validation
+        Verifications.password
+      ],
+      username: [
+        // Built-in validator for required field validation + custom message
+        {
+          execute: Verifications.required.execute,
+          msg: 'Username cannot be empty'
+        },
+        // Built-in validator for username validation
+        Verifications.username
+      ]
+    }
+  )
+
+  // Use component to quickly bind hooks
+  const attr = useAttr(formData)
+
+  const submit = async () => {
+    const isValid = await formData.doAllValidate()
+    console.log('submit:isValid: ', isValid)
+    if (isValid) {
+      console.log('formValue', formData.value)
+    }
+  }
+
+  return (
+    <div className="p-10 pt-18 pb-0 flex-col">
+      <Input
+        placeholder="Please enter your username"
+        // Comment out the original binding logic
+        // value={formData.value.username}
+        // onChange={(e) => formData.pushValue('username', e.target.value)}
+        // isInvalid={formData.errors.username?.isInvalid}
+        // errorMessage={formData.errors.username?.msg}
+
+        // Replace with quick binding
+        // NextUI.N_Input is specifically adapted for [NextUI.Input], other components are being supplemented
+        // Developers can also add support for third-party components in their projects, see the developer documentation for details (to be added)
+        {...attr('username', attr.NextUI.N_Input)}
+      ></Input>
+      <Input
+        autoComplete="new-password"
+        type="password"
+        placeholder="Please enter your password"
+        {...attr('password', attr.NextUI.N_Input)}
+        // value={formData.value.password}
+        // isInvalid={formData.errors.password?.isInvalid}
+        // errorMessage={formData.errors.password?.msg}
+        // onChange={(e) => formData.pushValue('password', e.target.value)}
+      ></Input>
+
       <Button onClick={submit}>Login</Button>
     </div>
   )
