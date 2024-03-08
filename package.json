@@ -1,6 +1,17 @@
 {
   "name": "hook-form-react",
   "version": "0.5.1",
+  "keywords": [
+    "react",
+    "hook",
+    "form",
+    "typescript",
+    "typedoc",
+    "lightweight",
+    "nextui",
+    "antd",
+    "mui"
+  ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
