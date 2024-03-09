@@ -1,5 +1,7 @@
 # Hook Form React
 
+This library is a lightweight, dependency-free solution for form validation and submission designed specifically for React applications.
+
 该库是一个专为 React 应用设计的轻量级、无依赖的表单验证和提交解决方案。
 
 中文 [English](./README.en.md)
@@ -14,6 +16,39 @@
 - **通用性**：适配所有 UI 组件库，为 React 开发者提供统一的表单处理解决方案。
 - **文档支持**：使用 TypeDoc 生成详尽的文档，帮助开发者更好地理解和使用库中的功能。
 - **灵活的打包支持**：使用 Rollup 进行打包，支持 UMD、CommonJS 和 ES 模块格式，以适配不同的使用场景和环境。
+
+## 版本说明
+
+- **Next 后续版本计划**
+
+  1. 对于对象嵌套型表单的支持
+  2. **Antd 组件**：正在考虑是否要适配（当然不适配也是可用的），由于 Antd 自有表单的 Form.Item 和 Form 深度耦合，且基础表单需要内嵌在 Form.Item 中才有规范的显示效果。适配后开发体验感觉很难有 Antd 自由表单好，还在犹豫中
+  3. **MUI 组件**： 组件未自带表单验证，一般使用 react-hook-form（体验并不好），所以后续会进行适配，但由于当前企业并未使用该套组件库，所以优先级并不高
+
+- **v1.0.0（正式版）**
+
+  1. 重构了验证规则实现类，使用会更友好，同时新增几个常用验证规则 [所有的常用验证规则](https://luoanb.github.io/hook-form-react/classes/Verifications.html)。验证规则并未完全经过测试，有问题欢迎@我。
+  2. **NextUI 组件**：目前所有表单已经适配完成 [所有已适配组件](https://luoanb.github.io/hook-form-react/classes/NextUI_2_2.html) (如有遗漏后续会补上，@手动 dog，嘿嘿)
+  3. 修复类型声明不准确问题。
+  4. 添加测试项目，用于验证功能
+
+- **v0.5.x (底层实现预览)**
+
+  1. 底层框架已实现，使用体验顺畅，可直接[往下看高级用法]()
+  2. 整体拓展性良好，组件库相关代码和表单核心代码是完全隔离的，这为今后支持不同的组件库打下基础。
+  3. 表单数据状态，表单异常状态完全可控，可以根据业务定制逻辑。
+  4. 验证规则也是统一实现，拓展和自定义都很方便。
+  5. 零依赖项，纯 hooks。
+
+## 组件库支持情况
+
+- 【90 分】 NextUI 体验良好，且有问题会及时修复（自己也在用）
+
+- 【60 分】 MUI 在 MUI 自己不支持表单验证的前提下，使用 hook-form-react 也是不会错的，至少相对于 react-hook-form，它没有一堆复杂的概念不是吗。
+
+- 【50 分】 Antd 组件自有表单使用体验不错的，优选选自有表单吧，（后续适配主要考虑双组件库情况）。
+
+- 【50 分】 ......
 
 ## 安装
 

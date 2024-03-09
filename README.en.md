@@ -15,6 +15,39 @@ Developed using React Hooks and TypeScript, it aims to provide a simple, efficie
 - **Documentation Support**: Utilizes TypeDoc to generate comprehensive documentation, helping developers better understand and use the features of the library.
 - **Flexible Packaging Support**: Uses Rollup for packaging, supporting UMD, CommonJS, and ES module formats to adapt to different usage scenarios and environments.
 
+## Version Notes
+
+- **Future Plans for Next Versions**
+
+  1. Support for object-nested forms.
+  2. **Antd Components**: Still considering whether to adapt or not (it's still usable without adaptation). Due to the deep coupling of Antd's own Form.Item and Form, and the requirement for basic forms to be nested in Form.Item for standard display effects, adapting might not offer as good a development experience as using Antd's own forms. Still undecided.
+  3. **MUI Components**: These components do not come with form validation, generally used with react-hook-form (which does not provide a good experience), so there will be adaptations in the future. However, as this component library is not currently used by our company, the priority is not high.
+
+- **v1.0.0 (Official Release)**
+
+  1. Refactored the validation rule implementation class for a friendlier usage experience, and added several common validation rules [All common validation rules](https://luoanb.github.io/hook-form-react/classes/Verifications.html). The validation rules have not been fully tested; issues are welcome to be reported.
+  2. **NextUI Components**: All forms have now been adapted [All adapted components](https://luoanb.github.io/hook-form-react/classes/NextUI_2_2.html) (any omissions will be updated, @manual dog, hehe)
+  3. Fixed inaccurate type declarations.
+  4. Added test projects for functionality verification.
+
+- **v0.5.x (Core Implementation Preview)**
+
+  1. The core framework has been implemented, offering a smooth user experience, and can be directly used [see advanced usage]() below.
+  2. Overall good extensibility, with component library related code and core form code being completely isolated, laying the foundation for future support of different component libraries.
+  3. Complete control over form data state and form error state, allowing for customization according to business logic.
+  4. Validation rules are also uniformly implemented, making extension and customization convenient.
+  5. Zero dependencies, purely hooks-based.
+
+## Component Library Support
+
+- **90 Points**: NextUI provides a good experience, and issues are promptly fixed (also in use by ourselves).
+
+- **60 Points**: MUI, given its lack of support for form validation, using hook-form-react is still a good choice. At least compared to react-hook-form, it doesn't have a bunch of complex concepts, right?
+
+- **50 Points**: Antd components have a good native form experience, prefer to choose their own forms (subsequent adaptations mainly consider dual component library scenarios).
+
+- **50 Points**: ......
+
 ## Installation
 
 ```shell
