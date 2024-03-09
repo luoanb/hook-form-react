@@ -5,7 +5,7 @@ import { Button, Input } from '@nextui-org/react'
 
 export const Example = () => {
   const formData = useFormData(
-    { password: '', username: '' },
+    { password: '', username: '', age: '' },
     {
       // 支持多个校验
       password: [
@@ -20,7 +20,8 @@ export const Example = () => {
         Verifications.required('用户账户不能为空'),
         // 自带验证器的用户名校验
         Verifications.username()
-      ]
+      ],
+      age: [Verifications.min(0), Verifications.max(150)]
     }
   )
 
@@ -36,9 +37,10 @@ export const Example = () => {
   }
 
   return (
-    <div className="p-10 pt-18 pb-0 flex-col">
+    <div className="p-10 pt-18 pb-0 flex-col m-auto" style={{ width: '50vw' }}>
       <Input
         placeholder="请输入账户"
+        className="mb-2"
         // // 注释掉原有绑定逻辑
         // value={formData.value.username}
         // onChange={(e) => formData.pushValue('username', e.target.value)}
@@ -53,12 +55,18 @@ export const Example = () => {
       <Input
         autoComplete="new-password"
         type="password"
+        className="mb-2"
         placeholder="请输入登录密码"
         {...attr('password', attr.NextUI.N_Input)}
         // value={formData.value.password}
         // isInvalid={formData.errors.password?.isInvalid}
         // errorMessage={formData.errors.password?.msg}
         // onChange={(e) => formData.pushValue('password', e.target.value)}
+      ></Input>
+      <Input
+        className="mb-2"
+        placeholder="请输入年龄"
+        {...attr('age', attr.NextUI.N_Input)}
       ></Input>
 
       <Button onClick={submit}>登录</Button>

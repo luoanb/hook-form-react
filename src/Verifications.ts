@@ -22,7 +22,7 @@ export class Verifications {
     const defaultMsg = `输入位数不能大于${num}`
     return {
       execute: async (value) => value?.length <= num,
-      msg: msg ?? defaultMsg
+      msg: msg || defaultMsg
     } as IVerificationItem<string>
   }
   /**
@@ -35,7 +35,7 @@ export class Verifications {
     const defaultMsg = `输入位数不能小于${num}`
     return {
       execute: async (value) => value?.length >= num,
-      msg: msg ?? defaultMsg
+      msg: msg || defaultMsg
     } as IVerificationItem<string>
   }
   /**
@@ -47,12 +47,21 @@ export class Verifications {
   static min(num: number, msg = '') {
     const defaultMsg = `输入不能小于${num}`
     return {
-      execute: async (value) => Number(value) >= num,
-      msg: msg ?? defaultMsg
+      execute: async (value) => {
+        try {
+          console.log('Number', Number(value))
+          return Number(value) >= num
+        } catch (error) {
+          console.log(error, 'err')
+
+          return false
+        }
+      },
+      msg: msg || defaultMsg
     } as IVerificationItem<string>
   }
   /**
-   * 数量最小值
+   * 数量最大值
    * @param num 最大数
    * @param msg 输入不能大于${num}
    * @returns
@@ -60,8 +69,14 @@ export class Verifications {
   static max(num: number, msg = '') {
     const defaultMsg = `输入不能大于${num}`
     return {
-      execute: async (value) => Number(value) <= num,
-      msg: msg ?? defaultMsg
+      execute: async (value) => {
+        try {
+          return Number(value) <= num
+        } catch (error) {
+          return false
+        }
+      },
+      msg: msg || defaultMsg
     } as IVerificationItem<string>
   }
 
@@ -108,21 +123,63 @@ export class Verifications {
     const defaultMsg = `请输入字母、数字、下划线，${min}-${max}位`
     return {
       regex: new RegExp(`^[a-zA-Z0-9_]{${min},${max}}$`),
-      msg: msg ?? defaultMsg
+      msg: msg || defaultMsg
     } as IVerificationItem<string>
   }
 
   /**
-   * 密码正则表达式（字母、数字、特殊字符，6-18位）
+   * 密码正则表达式（字母、数字、特殊字符(至少各一位)，6-16位）
    * @param props.min =6
    * @param props.max =16
    * @param props.msg = 请输入字母、数字、特殊字符，${min}-${max}位
    */
   static password({ min = 6, max = 16, msg = '' } = {}) {
+    const defaultMsg = `请输入字母、数字、特殊字符(至少各一位)，${min}-${max}位`
+    return {
+      async execute(password) {
+        // 定义特殊字符集
+        const specialChars = '!@#$%^&*()'
+        // 创建正则表达式
+        // 分别对字母、数字和特殊字符进行检测的正则表达式
+        const hasLetter = new RegExp('[a-zA-Z]')
+        const hasNumber = new RegExp('[0-9]')
+        const hasSpecialChar = new RegExp(
+          '[' + specialChars.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1') + ']'
+        )
+        // 检查长度
+        if (password.length < min || password.length > max) {
+          return false
+        }
+        // 检查是否包含至少一个字母
+        if (!hasLetter.test(password)) {
+          return false
+        }
+        // 检查是否包含至少一个数字
+        if (!hasNumber.test(password)) {
+          return false
+        }
+        // 检查是否包含至少一个特殊字符
+        if (!hasSpecialChar.test(password)) {
+          return false
+        }
+        // 如果所有条件都满足，则密码有效
+        return true
+      },
+
+      msg: msg || defaultMsg
+    } as IVerificationItem<string>
+  }
+  /**
+   * 密码正则表达式（字母、数字、特殊字符，6-16位),仅验证位数
+   * @param props.min =6
+   * @param props.max =16
+   * @param props.msg = 请输入字母、数字、特殊字符，${min}-${max}位
+   */
+  static passwd({ min = 6, max = 16, msg = '' } = {}) {
     const defaultMsg = `请输入字母、数字、特殊字符，${min}-${max}位`
     return {
-      regex: new RegExp(`^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{${min},${max}}$`),
-      msg: msg ?? defaultMsg
+      regex: new RegExp(`^[A-Za-z\\d@$!%*?&]{${min},${max}}$`),
+      msg: msg || defaultMsg
     } as IVerificationItem<string>
   }
 
