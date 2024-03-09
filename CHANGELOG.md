@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 1.0.2
+
+### Patch Changes
+
+- 优化文档；添加示例文档
+
 ## 1.0.1
 
 ### Patch Changes
