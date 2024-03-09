@@ -1,4 +1,4 @@
-import { Verifications } from './Verifications'
+import { IVerificationItem, Verifications } from './Verifications'
 import { useObjectData } from './useObjectData'
 
 /**
@@ -7,26 +7,26 @@ import { useObjectData } from './useObjectData'
  * 2. 一定要区分集合和单个元素
  */
 
-/**
- * 验证规则
- */
-export type IVerificationItem<V> = Partial<{
-  /**
-   * @description 正则 同时设置了execute和regex的情况下,需要两个都验证通过才算通过
-   **/
-  regex: RegExp
-  /**
-   * 自定义表达式: 异步
-   * @description 同时设置了execute和regex的情况下,需要两个都验证通过才算通过
-   * @param value
-   * @returns 是否正确: true:正确, false:错误
-   */
-  execute: (value: V) => Promise<boolean>
-  /**
-   * 错误提示
-   */
-  msg: React.ReactNode
-}>
+// /**
+//  * 验证规则
+//  */
+// export type IVerificationItem<V> = Partial<{
+//   /**
+//    * @description 正则 同时设置了execute和regex的情况下,需要两个都验证通过才算通过
+//    **/
+//   regex: RegExp
+//   /**
+//    * 自定义表达式: 异步
+//    * @description 同时设置了execute和regex的情况下,需要两个都验证通过才算通过
+//    * @param value
+//    * @returns 是否正确: true:正确, false:错误
+//    */
+//   execute: (value: V) => Promise<boolean>
+//   /**
+//    * 错误提示
+//    */
+//   msg: React.ReactNode
+// }>
 
 /**
  * 错误

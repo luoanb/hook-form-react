@@ -1,4 +1,25 @@
 /**
+ * 验证规则: 如果同时设置了execute和regex，两者都通过才算验证通过
+ */
+export type IVerificationItem<V> = Partial<{
+  /**
+   * 正则表达式
+   */
+  regex?: RegExp
+  /**
+   * 自定义校验函数：异步
+   * @param value 要验证的值
+   * @returns 是否通过验证：true为通过，false为不通过
+   */
+  execute?: (value: V) => Promise<boolean>
+  /**
+   * /**
+   * 错误提示
+   */
+  msg: string
+}>
+
+/**
  * 基础校验规则
  */
 export class Verifications {
@@ -327,21 +348,4 @@ export class Verifications {
       msg
     } as IVerificationItem<string>
   }
-}
-
-/**
- * 验证规则: 如果同时设置了execute和regex，两者都通过才算验证通过
- */
-type IVerificationItem<V> = {
-  /**
-   * 正则表达式
-   */
-  regex?: RegExp
-  /**
-   * 自定义校验函数：异步
-   * @param value 要验证的值
-   * @returns 是否通过验证：true为通过，false为不通过
-   */
-  execute?: (value: V) => Promise<boolean>
-  msg: string
 }
