@@ -148,18 +148,15 @@ export const Example = () => {
       password: [
         // 自带验证器必填校验
         // 开发者也可以自行在项目中补充其它验证规则，具体请看开发者文档（待补充）
-        Verifications.required,
+        Verifications.required(),
         // 自带验证器密码校验
-        Verifications.password
+        Verifications.password()
       ],
       username: [
         // 自带验证器的必填校验 + 自定义提示
-        {
-          execute: Verifications.required.execute,
-          msg: '用户账户不能为空'
-        },
+        Verifications.required('用户账户不能为空'),
         // 自带验证器的用户名校验
-        Verifications.username
+        Verifications.username()
       ]
     }
   )
@@ -206,6 +203,8 @@ export const Example = () => {
   )
 }
 ```
+
+### [完整文档](./example.md)
 
 ## API 参考
 

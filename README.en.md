@@ -147,18 +147,15 @@ export const Example = () => {
       password: [
         // Built-in validator for required field validation
         // Developers can also add other validation rules in their projects, see the developer documentation for details (to be added)
-        Verifications.required,
+        Verifications.required(),
         // Built-in validator for password validation
-        Verifications.password
+        Verifications.password()
       ],
       username: [
         // Built-in validator for required field validation + custom message
-        {
-          execute: Verifications.required.execute,
-          msg: 'Username cannot be empty'
-        },
+        Verifications.required('Username cannot be empty'),
         // Built-in validator for username validation
-        Verifications.username
+        Verifications.username()
       ]
     }
   )
@@ -205,6 +202,8 @@ export const Example = () => {
   )
 }
 ```
+
+### [Full Example](./example.en.md)
 
 ## API Reference
 
