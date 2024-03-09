@@ -3,14 +3,18 @@
   "version": "0.5.4",
   "keywords": [
     "react",
-    "hook",
+    "hooks",
     "form",
-    "typescript",
-    "typedoc",
-    "lightweight",
+    "forms",
+    "form-validation",
+    "validation",
+    "react-hooks",
+    "react-hook-form",
     "nextui",
+    "next ui",
     "antd",
-    "mui"
+    "mui",
+    "typescript"
   ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
