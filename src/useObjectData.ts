@@ -20,7 +20,7 @@ export const useObjectData = <T extends Record<string, any> = Record<string, any
    * @param key
    * @param value
    */
-  const pushValue = <K extends keyof T>(key: K, value: CallSetValue<T[K]>) => {
+  const pushValue = <K extends keyof T, V extends T[K] = T[K]>(key: K, value: CallSetValue<V>) => {
     setValue((old) => {
       if (typeof value == 'function') {
         return {

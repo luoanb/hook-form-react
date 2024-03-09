@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 1.0.0
+
+### Major Changes
+
+- 正式版 v1.0.0
+
 ## 0.5.4
 
 ### Patch Changes

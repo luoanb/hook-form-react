@@ -2,6 +2,12 @@ import { Verifications } from './Verifications'
 import { useObjectData } from './useObjectData'
 
 /**
+ * 关于TS泛型的思考,
+ * 1. 一定要知道泛型来自于哪里,参数取决于哪里是最重要的问题
+ * 2. 一定要区分集合和单个元素
+ */
+
+/**
  * 验证规则
  */
 export type IVerificationItem<V> = Partial<{
@@ -39,6 +45,7 @@ export type IError = {
    */
   errors: IVerificationItem<any>[]
 }
+// keyof T, IError
 /**
  * 错误集合
  */
@@ -67,7 +74,7 @@ export const useFormData = <T extends Record<string, any> = Record<string, any>>
   const formData = useObjectData(defaultValue)
   const formErrors = useObjectData<IErrors<T>>({})
 
-  const doValidate = async (key: keyof T) => {
+  const doValidate = async <K extends keyof T>(key: K) => {
     const verifItems = verifications[key]
     if (verifItems) {
       const verifStates = await Promise.all(
