@@ -1,4 +1,4 @@
-import { CheckboxProps, RadioGroupProps, SelectProps, TextAreaProps } from '@nextui-org/react'
+import { SelectProps } from '@nextui-org/react'
 import { RenderAttrProps } from './useAttr'
 
 /**
