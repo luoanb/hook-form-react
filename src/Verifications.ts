@@ -4,6 +4,7 @@
 export class Verifications {
   /**
    * 必填校验
+   * @param [msg='请输入']
    */
   static required(msg = '请输入') {
     return {
@@ -13,7 +14,8 @@ export class Verifications {
   }
   /**
    * 字符最大限制
-   * @param msg
+   * @param num 最大数量
+   * @param msg 输入位数不能大于${num}
    * @returns
    */
   static maxLenth(num: number, msg = '') {
@@ -25,8 +27,8 @@ export class Verifications {
   }
   /**
    * 字符最小限制
-   * @param num
-   * @param msg
+   * @param num 最小数量
+   * @param msg 输入位数不能小于${num}
    * @returns
    */
   static minLenth(num: number, msg = '') {
@@ -38,8 +40,8 @@ export class Verifications {
   }
   /**
    * 数量最小值
-   * @param num
-   * @param msg
+   * @param num 最小数
+   * @param msg 输入不能小于${num}
    * @returns
    */
   static min(num: number, msg = '') {
@@ -51,8 +53,8 @@ export class Verifications {
   }
   /**
    * 数量最小值
-   * @param num
-   * @param msg
+   * @param num 最大数
+   * @param msg 输入不能大于${num}
    * @returns
    */
   static max(num: number, msg = '') {
@@ -65,6 +67,7 @@ export class Verifications {
 
   /**
    * 手机号码正则表达式（以中国大陆手机号码为例，11位数字，以1开头）
+   * @param [msg='手机号码格式有误']
    */
   static mobile(msg = '手机号码格式有误') {
     return {
@@ -75,6 +78,7 @@ export class Verifications {
 
   /**
    * 电子邮件地址正则表达式（简单版，仅匹配基本的电子邮件格式）
+   * @param [msg='电子邮件地址格式有误']
    */
   static email(msg = '电子邮件地址格式有误') {
     return {
@@ -85,6 +89,7 @@ export class Verifications {
 
   /**
    * URL地址正则表达式
+   * @param [msg='URL地址格式有误']
    */
   static url(msg = 'URL地址格式有误') {
     return {
@@ -95,8 +100,11 @@ export class Verifications {
 
   /**
    * 用户名正则表达式（字母、数字、下划线，4-16位）
+   * @param props.min =6
+   * @param props.max =16
+   * @param props.msg = 请输入字母、数字、下划线，${min}-${max}位
    */
-  static username({ min = 6, max = 16, msg = '' }) {
+  static username({ min = 6, max = 16, msg = '' } = {}) {
     const defaultMsg = `请输入字母、数字、下划线，${min}-${max}位`
     return {
       regex: new RegExp(`^[a-zA-Z0-9_]{${min},${max}}$`),
@@ -106,8 +114,11 @@ export class Verifications {
 
   /**
    * 密码正则表达式（字母、数字、特殊字符，6-18位）
+   * @param props.min =6
+   * @param props.max =16
+   * @param props.msg = 请输入字母、数字、特殊字符，${min}-${max}位
    */
-  static password({ min = 6, max = 16, msg = '' }) {
+  static password({ min = 6, max = 16, msg = '' } = {}) {
     const defaultMsg = `请输入字母、数字、特殊字符，${min}-${max}位`
     return {
       regex: new RegExp(`^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{${min},${max}}$`),
@@ -117,6 +128,7 @@ export class Verifications {
 
   /**
    * 整数正则表达式（正整数和负整数）
+   * @param [msg='整数格式有误']
    */
   static integer(msg = '整数格式有误') {
     return {
@@ -127,6 +139,7 @@ export class Verifications {
 
   /**
    * 浮点数正则表达式（正浮点数和负浮点数）
+   * @param [msg='浮点数格式有误']
    */
   static float(msg = '浮点数格式有误') {
     return {
@@ -137,6 +150,7 @@ export class Verifications {
 
   /**
    * 中文字符正则表达式
+   * @param [msg='必须包含中文字符']
    */
   static chinese(msg = '必须包含中文字符') {
     return {
@@ -147,6 +161,7 @@ export class Verifications {
 
   /**
    * IP地址（IPv4）正则表达式
+   * @param [msg='IP地址格式有误']
    */
   static ip(msg = 'IP地址格式有误') {
     return {
@@ -159,6 +174,7 @@ export class Verifications {
 
   /**
    * 十六进制颜色正则表达式
+   * @param [msg='十六进制颜色格式有误']
    */
   static hexColor(msg = '十六进制颜色格式有误') {
     return {
@@ -170,7 +186,7 @@ export class Verifications {
   /**
    * 日期（YYYY-MM-DD格式）正则表达式
    */
-  static date({ msg = '日期格式有误', dash = '-' }) {
+  static date({ msg = '日期格式有误', dash = '-' } = {}) {
     return {
       regex: new RegExp(`^\\d{4}${dash}\\d{2}${dash}\\d{2}$`),
       msg
@@ -180,7 +196,7 @@ export class Verifications {
   /**
    * 时间（HH:mm:ss格式）正则表达式
    */
-  static time({ msg = '时间格式有误', dash = '-' }) {
+  static time({ msg = '时间格式有误', dash = ':' } = {}) {
     return {
       regex: new RegExp(`^([01]\\d|2[0-3])${dash}([0-5]\\d)${dash}([0-5]\\d)$`),
       msg
@@ -189,6 +205,7 @@ export class Verifications {
 
   /**
    * 身份证号码（简单版，15位或18位）正则表达式
+   * @param [msg='身份证号码格式有误']
    */
   static idCard(msg = '身份证号码格式有误') {
     return {
@@ -199,6 +216,7 @@ export class Verifications {
 
   /**
    * 邮政编码（6位数字）正则表达式
+   * @param [msg='邮政编码格式有误']
    */
   static postalCode(msg = '邮政编码格式有误') {
     return {
@@ -209,6 +227,7 @@ export class Verifications {
 
   /**
    * 电话号码（简单版，区号+号码，区号以0开头，3-4位数字；号码7-8位数字）正则表达式
+   * @param [msg='电话号码格式有误']
    */
   static phone(msg = '电话号码格式有误') {
     return {
@@ -219,6 +238,7 @@ export class Verifications {
 
   /**
    * 微信号（简单版，6-20位，包括字母、数字、下划线和减号）正则表达式
+   * @param [msg='微信号格式有误']
    */
   static wechat(msg = '微信号格式有误') {
     return {
@@ -229,6 +249,7 @@ export class Verifications {
 
   /**
    * QQ号码（5-12位数字）正则表达式
+   * @param [msg='QQ号码格式有误']
    */
   static qq(msg = 'QQ号码格式有误') {
     return {
@@ -239,6 +260,7 @@ export class Verifications {
 
   /**
    * 车牌号（简单版，以省份简称开头，后面是一个字母和5个字母或数字）正则表达式
+   * @param [msg='车牌号格式有误']
    */
   static plateNumber(msg = '车牌号格式有误') {
     return {
