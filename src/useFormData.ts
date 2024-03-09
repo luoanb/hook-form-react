@@ -51,9 +51,9 @@ export type IVerification<V> = Array<IVerificationItem<V>>
 /**
  * 表单验证规则集合
  */
-export type IVerifications<T, K extends keyof T = keyof T, V extends T[K] = T[K]> = Partial<
-  Record<K, IVerification<V>>
->
+export type IVerifications<T, K extends keyof T = keyof T> = Partial<{
+  [P in K]: IVerification<T[P]>
+}>
 
 /**
  * 表单数据,函验证和错误

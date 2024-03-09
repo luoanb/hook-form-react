@@ -13,30 +13,30 @@ export class Verifications {
     } as IVerificationItem<string>
   }
   /**
-   * 字符最大限制
+   * 数组/字符 最大限制
    * @param num 最大数量
-   * @param msg 输入位数不能大于${num}
+   * @param msg 位数不能大于${num}
    * @returns
    */
   static maxLenth(num: number, msg = '') {
-    const defaultMsg = `输入位数不能大于${num}`
+    const defaultMsg = `位数不能大于${num}`
     return {
       execute: async (value) => value?.length <= num,
       msg: msg || defaultMsg
-    } as IVerificationItem<string>
+    } as IVerificationItem<string | any[]>
   }
   /**
-   * 字符最小限制
+   * 数组/字符 最小限制
    * @param num 最小数量
-   * @param msg 输入位数不能小于${num}
+   * @param msg 位数不能小于${num}
    * @returns
    */
   static minLenth(num: number, msg = '') {
-    const defaultMsg = `输入位数不能小于${num}`
+    const defaultMsg = `位数不能小于${num}`
     return {
       execute: async (value) => value?.length >= num,
       msg: msg || defaultMsg
-    } as IVerificationItem<string>
+    } as IVerificationItem<string | any[]>
   }
   /**
    * 数量最小值

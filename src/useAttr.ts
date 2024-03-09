@@ -25,14 +25,13 @@ export type RenderAttr<R, V> = (props: RenderAttrProps<V>) => R
 /**
  * 组件表单快速绑定
  */
-export const useAttr = <T, K extends keyof T = keyof T>({
-  value,
-  errors,
-  pushValue
-}: IuseAttr<T>) => {
-  const attr = <R>(key: K, renderAttr: RenderAttr<R, T[K]>) => {
+export const useAttr = <T>({ value, errors, pushValue }: IuseAttr<T>) => {
+  const attr = <R, K extends keyof T = keyof T, V extends T[K] = T[K]>(
+    key: K,
+    renderAttr: RenderAttr<R, V>
+  ) => {
     return renderAttr({
-      value: value[key],
+      value: value[key] as V,
       isError: errors[key]?.isInvalid,
       msg: errors[key]?.msg,
       setValue: (value) => pushValue(key, value)

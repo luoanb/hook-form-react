@@ -1,29 +1,29 @@
 // rollup.config.mjs
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import typescript from "rollup-plugin-typescript2";
-import { terser } from "rollup-plugin-terser";
-import { uglify } from "rollup-plugin-uglify";
-import dts from "rollup-plugin-dts";
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import typescript from 'rollup-plugin-typescript2'
+import { terser } from 'rollup-plugin-terser'
+import { uglify } from 'rollup-plugin-uglify'
+import dts from 'rollup-plugin-dts'
 
-import pkg from "./package.json" assert { type: "json" };
+import pkg from './package.json' assert { type: 'json' }
 /** @type {import('rollup').RollupOptions} */
 export default [
   // browser-friendly UMD build
   {
-    input: "src/index.ts",
+    input: 'src/index.ts',
     output: {
-      name: "hookFormReact",
+      name: 'hookFormReact',
       file: pkg.browser,
-      format: "umd",
+      format: 'umd'
     },
-    external: ["react"],
+    external: ['react', '@nextui-org/react'],
     plugins: [
       typescript(),
       resolve(), // so Rollup can find `ms`
       commonjs(), // so Rollup can convert `ms` to an ES module
-      ...(process.env.NODE_ENV === "development" ? [] : [terser(), uglify()]),
-    ],
+      ...(process.env.NODE_ENV === 'development' ? [] : [terser(), uglify()])
+    ]
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
@@ -33,24 +33,24 @@ export default [
   // an array for the `output` option, where we can specify
   // `file` and `format` for each target)
   {
-    input: "src/index.ts",
-    external: ["react"],
+    input: 'src/index.ts',
+    external: ['react'],
     output: [
-      { file: pkg.main, format: "cjs" },
-      { file: pkg.module, format: "es" },
+      { file: pkg.main, format: 'cjs' },
+      { file: pkg.module, format: 'es' }
     ],
-    plugins: [typescript()],
+    plugins: [typescript()]
   },
 
   // 声明
   {
-    input: "src/index.ts",
-    external: ["react"],
+    input: 'src/index.ts',
+    external: ['react'],
     output: [
       {
-        file: "./dist/index.d.ts",
-      },
+        file: './dist/index.d.ts'
+      }
     ],
-    plugins: [dts()],
-  },
-];
+    plugins: [dts()]
+  }
+]
