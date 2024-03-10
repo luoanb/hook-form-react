@@ -26,7 +26,12 @@ export const Example = () => {
       value6: false,
       value7: '',
       value8: '',
-      value9: ''
+      value9: '',
+      value10: {
+        name: '小红',
+        heihei: '小红',
+        haha: '小红'
+      }
     },
     {
       // 支持多个校验
@@ -61,6 +66,8 @@ export const Example = () => {
     }
   }
 
+  const value10 = formData.value.value10
+
   return (
     <div className="p-10 pt-18 pb-0 flex-col m-auto" style={{ width: '50vw' }}>
       <Input
@@ -93,7 +100,6 @@ export const Example = () => {
         placeholder="请输入年龄"
         {...attr('age', attr.NextUI.N_Input)}
       ></Input>
-
       <Select
         label="Favorite Animal"
         variant="bordered"
@@ -108,7 +114,6 @@ export const Example = () => {
         ))}
       </Select>
       <p className="text-small text-default-500 mb-2">Selected: {formData.value.value4}</p>
-
       <Select
         label="Favorite Animal"
         variant="bordered"
@@ -122,9 +127,7 @@ export const Example = () => {
           </SelectItem>
         ))}
       </Select>
-
       <p className="text-small text-default-500 mb-2">Selected: {formData.value.value5}</p>
-
       <Checkbox className="" {...attr('value6', attr.NextUI.N_Checkbox)}>
         Subscribe (controlled)
       </Checkbox>
@@ -132,7 +135,6 @@ export const Example = () => {
         Subscribe (controlled)
       </Switch>
       <p className="text-default-500 mb-2">Selected: {formData.value.value6 ? 'true' : 'false'}</p>
-
       <div className="flex flex-col gap-3 mb-2">
         <RadioGroup label="Select your favorite city" {...attr('value7', attr.NextUI.N_RadioGroup)}>
           <Radio value="buenos-aires">Buenos Aires</Radio>
@@ -143,7 +145,6 @@ export const Example = () => {
         </RadioGroup>
         <p className="text-default-500 text-small">Selected: {formData.value.value7}</p>
       </div>
-
       <div className="w-full flex flex-col gap-2">
         <Textarea
           {...attr('value8', attr.NextUI.N_TextArea)}
@@ -154,6 +155,17 @@ export const Example = () => {
         />
         <p className="text-default-500 text-small">Textarea value: {formData.value.value8}</p>
       </div>
+      <p>value10:{JSON.stringify(value10)}</p>
+      <p>value10.haha:{value10.haha}</p>
+      <p>value10.heihei:{value10.heihei}</p>
+      <p>value10.name:{value10.name}</p>
+      <Button
+        onClick={() => {
+          formData.pushValue('value10', (old) => ({ ...old, haha: 'HA_HA' }))
+        }}
+      >
+        setHaha
+      </Button>
 
       <div className="flex flex-col gap-2 w-full h-full max-w-md items-start justify-center">
         <Slider
@@ -167,7 +179,6 @@ export const Example = () => {
           Current volume: {formData.value.value9}
         </p>
       </div>
-
       <Button onClick={submit}>登录</Button>
     </div>
   )

@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
+
+export type IObjectData<T> = {
+  value: T
+  setValue: React.Dispatch<React.SetStateAction<T>>
+  pushValue: <K extends keyof T, V extends T[K] = T[K]>(key: K, value: CallSetValue<V>) => void
+  assignValue: (value: Partial<T>) => void
+  reset: (value?: Partial<T> | undefined) => void
+}
 
 /**
  * 可获取旧值的赋值
  */
 export type CallSetValue<V> = V | ((oldValue: V) => V)
 
-/**
- * 用于处理表单等对象型数据
- * @param defaultValue
- * @returns
- */
-export const useObjectData = <T extends Record<string, any> = Record<string, any>>(
-  defaultValue: T
+export const useObjectState = <T extends Record<string, any> = Record<string, any>>(
+  value: T,
+  setValue: Dispatch<SetStateAction<T>>
 ) => {
-  const [value, setValue] = useState(defaultValue)
-
   /**
    * 给对象的指定属性赋值
    * @param key
@@ -31,13 +33,6 @@ export const useObjectData = <T extends Record<string, any> = Record<string, any
       }
       return { ...old, [key]: value }
     })
-  }
-
-  /**
-   * 重置为默认值
-   */
-  const reset = (value: Partial<T> | undefined = undefined) => {
-    setValue({ ...defaultValue, ...(value || {}) })
   }
 
   /**
@@ -65,10 +60,27 @@ export const useObjectData = <T extends Record<string, any> = Record<string, any
     /**
      * 更新对象的部分值，其他值保持
      */
-    assignValue,
+    assignValue
+  }
+}
+
+/**
+ * 用于处理表单等对象型数据
+ * @param defaultValue
+ * @returns
+ */
+export const useObjectData = <T extends Record<string, any> = Record<string, any>>(
+  defaultValue: T
+) => {
+  const [value, setValue] = useState(defaultValue)
+  const state = useObjectState(value, setValue)
+  return {
+    ...state,
     /**
      * 重置为默认值
      */
-    reset
+    reset: (value: Partial<T> | undefined = undefined) => {
+      setValue({ ...defaultValue, ...(value || {}) })
+    }
   }
 }

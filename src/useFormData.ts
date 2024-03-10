@@ -62,6 +62,10 @@ export type IVerifications<T, K extends keyof T = keyof T> = Partial<{
   [P in K]: IVerification<T[P]>
 }>
 
+
+// const useFormDataBase = 
+
+
 /**
  * 表单数据,函验证和错误
  * @description 处理不了嵌套对象验证
