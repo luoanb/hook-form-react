@@ -2,7 +2,7 @@
 
 This library is a lightweight, dependency-free solution for form validation and submission designed specifically for React applications.
 
-English [中文](./README.md)
+English | [中文](./README.md) | [API](https://luoanb.github.io/hook-form-react/) | [Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
 
 Developed using React Hooks and TypeScript, it aims to provide a simple, efficient, and extensible way to handle form validation and submission, whether in simple or complex form scenarios. The design philosophy of this library emphasizes compatibility and extensibility, with the principle of supporting developers to achieve the richest functionality with the least code possible. It does not bind to any UI component library, thereby supporting all React component libraries.
 
