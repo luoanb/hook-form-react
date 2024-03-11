@@ -1,4 +1,3 @@
-// import { useAttr, useFormData, Verifications } from '../../src/index'
 import { useAttr, useFormData, useSubFormData, Verifications } from 'hook-form-react'
 import {
   Button,

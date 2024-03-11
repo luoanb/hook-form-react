@@ -4,7 +4,7 @@ This library is a lightweight, dependency-free solution for form validation and 
 
 该库是一个专为 React 应用设计的轻量级、无依赖的表单验证和提交解决方案。
 
-中文 [English](./README.en.md)
+中文 | [English](./README.en.md) | [API](https://luoanb.github.io/hook-form-react/) | [Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
 
 基于 React Hooks 和 TypeScript 开发，旨在提供一个简洁、高效且易于扩展的方式来处理表单验证和提交，无论是在简单还是复杂的表单场景中都能灵活应对。本库的设计哲学是兼容性和扩展性，理念是支持开发者以最少的代码实现最丰富的功能，不绑定任何 UI 组件库，从而支持所有 React 组件库。
 
@@ -21,9 +21,13 @@ This library is a lightweight, dependency-free solution for form validation and 
 
 - **Next 后续版本计划**
 
-  1. 对于对象嵌套型表单的支持
-  2. **Antd 组件**：正在考虑是否要适配（当然不适配也是可用的），由于 Antd 自有表单的 Form.Item 和 Form 深度耦合，且基础表单需要内嵌在 Form.Item 中才有规范的显示效果。适配后开发体验感觉很难有 Antd 自由表单好，还在犹豫中
-  3. **MUI 组件**： 组件未自带表单验证，一般使用 react-hook-form（体验并不好），所以后续会进行适配，但由于当前企业并未使用该套组件库，所以优先级并不高
+  1. **Antd 组件**：正在考虑是否要适配（当然不适配也是可用的），由于 Antd 自有表单的 Form.Item 和 Form 深度耦合，且基础表单需要内嵌在 Form.Item 中才有规范的显示效果。适配后开发体验感觉很难有 Antd 自由表单好，还在犹豫中
+  2. **MUI 组件**： 组件未自带表单验证，一般使用 react-hook-form（体验并不好），所以后续会进行适配，但由于当前企业并未使用该套组件库，所以优先级并不高
+
+- **v2.0.0（正式版）**
+
+  1. 新增对象嵌套型表单的支持,具体可查看[Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
+  2. 添加 Stackblitz 示例项目(需要科学上网)
 
 - **v1.0.0（正式版）**
 
@@ -204,7 +208,43 @@ export const Example = () => {
 }
 ```
 
-### [完整文档](./example.md)
+### 嵌套对象表单
+
+新增一个 hook `useSubFormData`用于处理嵌套表单，原则上可以处理任意层数的对象嵌套（也就是无线套娃）。
+
+```ts
+// useSubFormData
+const value10Form = useSubFormData(formData.formData, 'value10', {
+  haha: [Verifications.required(), Verifications.email()]
+})
+
+/**
+ * 嵌套对象的表单组件需要用它来绑定
+ */
+const attrValue10 = useAttr(value10Form)
+
+// 提交
+const submit = async () => {
+  const isValid = await formData.doAllValidate()
+  // 嵌套表单需要单独验证
+  const isValidValue10 = await value10Form.doAllValidate()
+  console.log('submit:isValid: ', isValid, isValidValue10)
+  if (isValid && isValidValue10) {
+    //顶层form能拿到所有value
+    console.log('formValue', formData.value)
+  }
+}
+
+// 重置
+const reset = () => {
+  formData.reset()
+  // 错误状态得单独重置
+  value10Form.formErrors.reset()
+}
+
+```
+
+### [完整示例](./example.md)
 
 ## API 参考
 

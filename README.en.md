@@ -203,6 +203,41 @@ export const Example = () => {
 }
 ```
 
+### Nested Object Forms
+
+Introducing a new hook `useSubFormData` for handling nested forms, which, in principle, can handle an arbitrary number of object nesting layers (i.e., infinite nesting).
+
+```ts
+// useSubFormData
+const value10Form = useSubFormData(formData.formData, 'value10', {
+  haha: [Verifications.required(), Verifications.email()]
+})
+
+/**
+ * This is required for binding to form components of nested objects.
+ */
+const attrValue10 = useAttr(value10Form)
+
+// Submit
+const submit = async () => {
+  const isValid = await formData.doAllValidate()
+  // Nested forms need to be validated separately
+  const isValidValue10 = await value10Form.doAllValidate()
+  console.log('submit:isValid: ', isValid, isValidValue10)
+  if (isValid && isValidValue10) {
+    // The top-level form can access all values
+    console.log('formValue', formData.value)
+  }
+}
+
+// Reset
+const reset = () => {
+  formData.reset()
+  // Error states need to be reset separately
+  value10Form.formErrors.reset()
+}
+```
+
 ### [Full Example](./example.en.md)
 
 ## API Reference
