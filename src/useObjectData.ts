@@ -5,7 +5,7 @@ export type IObjectData<T> = {
   setValue: React.Dispatch<React.SetStateAction<T>>
   pushValue: <K extends keyof T, V extends T[K] = T[K]>(key: K, value: CallSetValue<V>) => void
   assignValue: (value: Partial<T>) => void
-  reset: (value?: Partial<T> | undefined) => void
+  reset?: (value?: Partial<T> | undefined) => void
 }
 
 /**
@@ -13,6 +13,12 @@ export type IObjectData<T> = {
  */
 export type CallSetValue<V> = V | ((oldValue: V) => V)
 
+/**
+ * 处理ObjectState,但不存储数据
+ * @param value
+ * @param setValue
+ * @returns
+ */
 export const useObjectState = <T extends Record<string, any> = Record<string, any>>(
   value: T,
   setValue: Dispatch<SetStateAction<T>>

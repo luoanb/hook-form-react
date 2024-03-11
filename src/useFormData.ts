@@ -1,5 +1,6 @@
-import { IVerificationItem, Verifications } from './Verifications'
-import { useObjectData } from './useObjectData'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { IVerificationItem } from './Verifications'
+import { IObjectData, useObjectData, useObjectState } from './useObjectData'
 
 /**
  * 关于TS泛型的思考,
@@ -62,20 +63,15 @@ export type IVerifications<T, K extends keyof T = keyof T> = Partial<{
   [P in K]: IVerification<T[P]>
 }>
 
-
-// const useFormDataBase = 
-
-
 /**
- * 表单数据,函验证和错误
- * @description 处理不了嵌套对象验证
- * @param defaultValue
+ * 表单验证基础方法
  */
-export const useFormData = <T extends Record<string, any> = Record<string, any>>(
-  defaultValue: T,
+const useFormDataBase = <T extends Record<string, any> = Record<string, any>>(
+  value: T,
+  setValue: Dispatch<SetStateAction<T>>,
   verifications: IVerifications<T> = {}
 ) => {
-  const formData = useObjectData(defaultValue)
+  const formData = useObjectState(value, setValue)
   const formErrors = useObjectData<IErrors<T>>({})
 
   const doValidate = async <K extends keyof T>(key: K) => {
@@ -139,18 +135,18 @@ export const useFormData = <T extends Record<string, any> = Record<string, any>>
     return Object.values(formErrors.value).filter((err) => err?.isInvalid)?.length === 0
   }
 
-  const reset = (value: T | undefined = undefined) => {
-    formData.reset(value)
-    formErrors.reset()
-  }
+  // const reset = (value: T | undefined = undefined) => {
+  //   formData.reset(value)
+  //   formErrors.reset()
+  // }
 
   return {
     ...formData,
 
-    /**
-     * 重置(包含)
-     */
-    reset,
+    // /**
+    //  * 重置(包含)
+    //  */
+    // reset,
     /**
      * 进行验证单个属性
      */
@@ -174,11 +170,52 @@ export const useFormData = <T extends Record<string, any> = Record<string, any>>
     /**
      * 未结构的formData(一般用不到)
      */
-    formData,
+    formData
 
-    /**
-     * 常用校验
-     */
-    Verifications
+    // /**
+    //  * 常用校验
+    //  */
+    // Verifications
   }
+}
+
+/**
+ * 表单数据,表单验证和错误
+ * @description 处理不了嵌套对象验证
+ * @param defaultValue
+ */
+export const useFormData = <T extends Record<string, any> = Record<string, any>>(
+  defaultValue: T,
+  verifications: IVerifications<T> = {}
+) => {
+  const form = useFormDataBase(...useState(defaultValue), verifications)
+  return {
+    ...form,
+    reset: (value: T | undefined = undefined) => {
+      form.setValue({
+        ...defaultValue,
+        ...(value || {})
+      })
+      form.formErrors.reset()
+    }
+  }
+}
+
+/**
+ * 表单数据,嵌套表单验证
+ */
+export const useSubFormData = <
+  T extends Record<string, any> = Record<string, any>,
+  K extends keyof T = keyof T,
+  V extends T[K] = T[K]
+>(
+  parentValue: IObjectData<T>,
+  key: K,
+  verifications: IVerifications<V> = {}
+) => {
+  return useFormDataBase(
+    parentValue.value[key],
+    (value) => parentValue.pushValue(key, value),
+    verifications
+  )
 }
