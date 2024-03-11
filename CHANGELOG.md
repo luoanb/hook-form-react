@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 2.0.0
+
+### Major Changes
+
+- 新增嵌套表单支持
+
 ## 1.0.2
 
 ### Patch Changes
