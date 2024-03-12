@@ -20,6 +20,33 @@ export type IVerificationItem<V> = Partial<{
 }>
 
 /**
+ * 错误验证参数
+ */
+export type PasswordVerifProps = Partial<{
+  /** 最小字符数 */
+  min: number
+  /** 最大字符数 */
+  max: number
+  /** 错误提醒 */
+  msg: string
+  /**
+   * 至少一位字母:默认:true
+   * @default true
+   */
+  mustLatter: boolean
+  /**
+   * 至少一位数字:默认:true
+   * @default true
+   */
+  mustNumber: boolean
+  /**
+   * 至少一位特殊字符:默认:true
+   * @default true
+   */
+  mustSpecial: boolean
+}>
+
+/**
  * 基础校验规则
  */
 export class Verifications {
@@ -154,7 +181,14 @@ export class Verifications {
    * @param props.max =16
    * @param props.msg = 请输入字母、数字、特殊字符，${min}-${max}位
    */
-  static password({ min = 6, max = 16, msg = '' } = {}) {
+  static password({
+    min = 6,
+    max = 16,
+    msg = '',
+    mustLatter = true,
+    mustNumber = true,
+    mustSpecial = true
+  }: PasswordVerifProps = {}) {
     const defaultMsg = `请输入字母、数字、特殊字符(至少各一位)，${min}-${max}位`
     return {
       async execute(password) {
@@ -172,16 +206,22 @@ export class Verifications {
           return false
         }
         // 检查是否包含至少一个字母
-        if (!hasLetter.test(password)) {
-          return false
+        if (mustLatter) {
+          if (!hasLetter.test(password)) {
+            return false
+          }
         }
         // 检查是否包含至少一个数字
-        if (!hasNumber.test(password)) {
-          return false
+        if (mustNumber) {
+          if (!hasNumber.test(password)) {
+            return false
+          }
         }
         // 检查是否包含至少一个特殊字符
-        if (!hasSpecialChar.test(password)) {
-          return false
+        if (mustSpecial) {
+          if (!hasSpecialChar.test(password)) {
+            return false
+          }
         }
         // 如果所有条件都满足，则密码有效
         return true
