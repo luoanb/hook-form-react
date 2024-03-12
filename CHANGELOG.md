@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 2.0.2
+
+### Patch Changes
+
+- 自定义验证添加 form 上下文
+
 ## 2.0.1
 
 ### Patch Changes
