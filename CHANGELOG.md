@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 2.0.1
+
+### Patch Changes
+
+- 优化密码验证
+
 ## 2.0.0
 
 ### Major Changes
