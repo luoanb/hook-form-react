@@ -81,7 +81,7 @@ const useFormDataBase = <T extends Record<string, any> = Record<string, any>>(
         verifItems.map(async (item) => {
           let isT1 = true
           if (item.execute) {
-            isT1 = await item.execute?.(formData.value[key])
+            isT1 = await item.execute?.(formData.value[key], formData.value)
           }
           let isT2 = true
           if (item.regex) {

@@ -11,7 +11,7 @@ export type IVerificationItem<V> = Partial<{
    * @param value 要验证的值
    * @returns 是否通过验证：true为通过，false为不通过
    */
-  execute?: (value: V) => Promise<boolean>
+  execute?: (value: V, content: any) => Promise<boolean>
   /**
    * /**
    * 错误提示
