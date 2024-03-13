@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 2.1.0
+
+### Minor Changes
+
+- 修复立即更新数据立即验证出现异常的问题
+
 ## 2.0.2
 
 ### Patch Changes
