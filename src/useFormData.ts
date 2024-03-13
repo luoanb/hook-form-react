@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { IVerificationItem } from './Verifications'
 import { IObjectData, useObjectData, useObjectState } from './useObjectData'
 
@@ -28,6 +28,25 @@ import { IObjectData, useObjectData, useObjectState } from './useObjectData'
 //    */
 //   msg: React.ReactNode
 // }>
+
+/**
+ * 获取一个Promise 外置了reslove，reject
+ * @returns
+ */
+export const getPromise = <T>() => {
+  let reslove: (value: T) => void, reject: (err: any) => void
+  let promise = new Promise<T>((r, j) => {
+    reslove = r
+    reject = j
+  })
+  return {
+    promise,
+    // @ts-ignore
+    reslove,
+    // @ts-ignore
+    reject
+  }
+}
 
 /**
  * 错误
@@ -63,6 +82,17 @@ export type IVerifications<T, K extends keyof T = keyof T> = Partial<{
   [P in K]: IVerification<T[P]>
 }>
 
+export type IValidateKey<T> = {
+  /**
+   * 验证属性
+   */
+  key: keyof T
+  /**
+   * 时间戳
+   */
+  time: number
+}
+
 /**
  * 表单验证基础方法
  */
@@ -73,6 +103,58 @@ const useFormDataBase = <T extends Record<string, any> = Record<string, any>>(
 ) => {
   const formData = useObjectState(value, setValue)
   const formErrors = useObjectData<IErrors<T>>({})
+
+  // ----以下用于解决onChange时立即调用获取最新值的问题
+  const [validateKey, setValidateKey] = useState<IValidateKey<T>>({ key: '', time: 0 })
+
+  const validateRes = useRef(getPromise<{ isTrue: boolean; errors: IVerificationItem<any>[] }>())
+  /**
+   * 解决React赋值后马上验证获取不到最新数据的异常
+   * @param key
+   */
+  const doValidateImme = <K extends keyof T>(key: K) => {
+    validateRes.current = getPromise()
+    setValidateKey({ key, time: new Date().getTime() })
+    return validateRes.current.promise
+  }
+
+  useEffect(() => {
+    if (validateKey.time == 0) {
+      return
+    }
+    doValidate(validateKey.key).then((res) => validateRes.current.reslove(res))
+  }, [validateKey])
+
+  // ---以下代码为了解决在赋值后doAllValidate无法直接获取到最新数据
+  // 用于触发doAllValidate回调
+  const [allValidateKey, setAllValidateKey] = useState(0)
+  /**
+   * 存储doAllValidate的验证结果
+   */
+  const allValidRes = useRef(
+    getPromise<{
+      isValid: boolean
+      data: T
+    }>()
+  )
+  /**
+   * 解决React赋值后马上验证获取不到最新数据的异常
+   * @returns
+   */
+  const doAllValidateImme = () => {
+    setAllValidateKey(new Date().getTime())
+    allValidRes.current = getPromise()
+    return allValidRes.current.promise
+  }
+
+  useEffect(() => {
+    if (allValidateKey == 0) {
+      return
+    }
+    doAllValidate().then((res) => {
+      allValidRes.current.reslove({ isValid: res, data: value })
+    })
+  }, [allValidateKey])
 
   const doValidate = async <K extends keyof T>(key: K) => {
     const verifItems = verifications[key]
@@ -149,12 +231,23 @@ const useFormDataBase = <T extends Record<string, any> = Record<string, any>>(
     // reset,
     /**
      * 进行验证单个属性
+     * @description (如果调用发现校验异常,请使用 doValidateImme)
      */
     doValidate,
     /**
+     * 进行验证单个属性:解决onChange时立即调用获取最新值的问题
+     */
+    doValidateImme,
+    /**
      * 进行表单全校验
+     * @description (如果调用发现校验异常,请使用 doAllValidateImme)
      */
     doAllValidate,
+    /**
+     * 进行表单全校验: 解决马上赋值,马上校验时获取不到最新值的问题
+     * @returns : {isValid:校验是否正确,data:最新的数据}
+     */
+    doAllValidateImme,
     /**
      * 是否通过验证(不调用校验,基于当前的已存在的错误状态)
      */

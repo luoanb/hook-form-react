@@ -57,11 +57,12 @@ export const Example = () => {
   const attr = useAttr(formData)
 
   const submit = async () => {
-    // formData.pushValue('password', (old) => old + '你好')
-    const isValid = await formData.doAllValidate()
-    const isValidValue10 = await value10Form.doAllValidate()
-    console.log('submit:isValid: ', isValid, isValidValue10)
-    if (isValid) {
+    const valid = await formData.doAllValidateImme()
+    const validRes = await value10Form.doAllValidateImme()
+    console.log('formData', formData.value)
+    console.log('latestFormData', valid.data)
+    console.log('submit:isValid: ', valid.isValid, validRes.isValid)
+    if (valid.isValid && validRes.isValid) {
       console.log('formValue', formData.value)
     }
   }
@@ -97,6 +98,10 @@ export const Example = () => {
           className="mb-2"
           placeholder="请输入登录密码"
           {...attr('password', attr.NextUI.N_Input)}
+          onChange={(e) => {
+            formData.pushValue('password', e.target.value)
+            formData.doValidate('password')
+          }}
           // value={formData.value.password}
           // isInvalid={formData.errors.password?.isInvalid}
           // errorMessage={formData.errors.password?.msg}
@@ -191,6 +196,7 @@ export const Example = () => {
           <Button
             onClick={() => {
               value10Form.pushValue('haha', '163@163.com')
+              // submit()
             }}
           >
             setHaha

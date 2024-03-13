@@ -4,7 +4,7 @@ This library is a lightweight, dependency-free solution for form validation and 
 
 该库是一个专为 React 应用设计的轻量级、无依赖的表单验证和提交解决方案。
 
-中文 | [English](./README.en.md) | [API](https://luoanb.github.io/hook-form-react/) | [Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
+中文 | [English](./README.en.md) | [API](https://luoanb.github.io/hook-form-react/) | [示例:Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
 
 基于 React Hooks 和 TypeScript 开发，旨在提供一个简洁、高效且易于扩展的方式来处理表单验证和提交，无论是在简单还是复杂的表单场景中都能灵活应对。本库的设计哲学是兼容性和扩展性，理念是支持开发者以最少的代码实现最丰富的功能，不绑定任何 UI 组件库，从而支持所有 React 组件库。
 
@@ -24,12 +24,21 @@ This library is a lightweight, dependency-free solution for form validation and 
   1. **Antd 组件**：正在考虑是否要适配（当然不适配也是可用的），由于 Antd 自有表单的 Form.Item 和 Form 深度耦合，且基础表单需要内嵌在 Form.Item 中才有规范的显示效果。适配后开发体验感觉很难有 Antd 自由表单好，还在犹豫中
   2. **MUI 组件**： 组件未自带表单验证，一般使用 react-hook-form（体验并不好），所以后续会进行适配，但由于当前企业并未使用该套组件库，所以优先级并不高
 
-- **v2.0.0（正式版）**
+- **v2.1.0**
+
+  1. 修复立即赋值,立即验证时,获取不到最新的表单数据的问题(React.useState 异步执行导致的 bug),
+     新增两个方法：`doValidateImme` `doAllValidateImme`，当发现使用`doValidate`,`doAllValidate`存在问题时，相应替换一下对应的方法，原则上推荐优先使用`doValidate`,`doAllValidate`。
+
+- **v2.0.2**
+
+  1. 自定义校验规则，`execute?: (value: V, content: any) => Promise<boolean>` ，添加`content`参数用于获取表单上下文数据
+
+- **v2.0.0**
 
   1. 新增对象嵌套型表单的支持,具体可查看[Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
   2. 添加 Stackblitz 示例项目(需要科学上网)
 
-- **v1.0.0（正式版）**
+- **v1.0.0**
 
   1. 重构了验证规则实现类，使用会更友好，同时新增几个常用验证规则 [所有的常用验证规则](https://luoanb.github.io/hook-form-react/classes/Verifications.html)。验证规则并未完全经过测试，有问题欢迎@我。
   2. **NextUI 组件**：目前所有表单已经适配完成 [所有已适配组件](https://luoanb.github.io/hook-form-react/classes/NextUI_2_2.html) (如有遗漏后续会补上，@手动 dog，嘿嘿)
@@ -241,7 +250,6 @@ const reset = () => {
   // 错误状态得单独重置
   value10Form.formErrors.reset()
 }
-
 ```
 
 ### [完整示例](./example.md)

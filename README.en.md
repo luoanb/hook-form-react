@@ -2,7 +2,7 @@
 
 This library is a lightweight, dependency-free solution for form validation and submission designed specifically for React applications.
 
-English | [中文](./README.md) | [API](https://luoanb.github.io/hook-form-react/) | [Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
+English | [中文](./README.md) | [API](https://luoanb.github.io/hook-form-react/) | [Example:Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example)
 
 Developed using React Hooks and TypeScript, it aims to provide a simple, efficient, and extensible way to handle form validation and submission, whether in simple or complex form scenarios. The design philosophy of this library emphasizes compatibility and extensibility, with the principle of supporting developers to achieve the richest functionality with the least code possible. It does not bind to any UI component library, thereby supporting all React component libraries.
 
@@ -22,6 +22,20 @@ Developed using React Hooks and TypeScript, it aims to provide a simple, efficie
   1. Support for object-nested forms.
   2. **Antd Components**: Still considering whether to adapt or not (it's still usable without adaptation). Due to the deep coupling of Antd's own Form.Item and Form, and the requirement for basic forms to be nested in Form.Item for standard display effects, adapting might not offer as good a development experience as using Antd's own forms. Still undecided.
   3. **MUI Components**: These components do not come with form validation, generally used with react-hook-form (which does not provide a good experience), so there will be adaptations in the future. However, as this component library is not currently used by our company, the priority is not high.
+
+- **v2.1.0**
+
+  1. Fixed an issue where the latest form data could not be obtained when assigning values and validating immediately (a bug caused by the asynchronous execution of React.useState).
+     Added two functions `doValidateImme` and `doAllValidateImme`. When issues are found using `doValidate` or `doAllValidate`, replace them with the corresponding new functions. Principally, it is recommended to use `doValidate` and `doAllValidate` first.
+
+- **v2.0.2**
+
+  1. Custom validation rules, `execute?: (value: V, content: any) => Promise<boolean>`, added a `content` parameter for accessing form context data.
+
+- **v2.0.0**
+
+  1. Added support for nested object forms. For more details, see [Stackblitz](https://stackblitz.com/~/github.com/luoanb/hook-form-react-example).
+  2. Added a Stackblitz example project (requires VPN for access).
 
 - **v1.0.0 (Official Release)**
 
