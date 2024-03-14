@@ -1,4 +1,4 @@
-import { useAttr, useFormData, useSubFormData, Verifications } from 'hook-form-react'
+import { Antd_5, useAttr, useFormData, useSubFormData, Verifications } from 'hook-form-react'
 import {
   Button,
   Checkbox,
@@ -12,7 +12,7 @@ import {
   Textarea
 } from '@nextui-org/react'
 import { animals } from './data'
-// import { Button, Input } from 'antd'
+import { Input as A_Input, InputNumber } from 'antd'
 
 export const Example = () => {
   const formData = useFormData(
@@ -30,6 +30,12 @@ export const Example = () => {
         name: '小红',
         heihei: '小红',
         haha: '小红'
+      },
+      antdValue: {
+        str: '',
+        num: 0,
+        arr: [],
+        bool: false
       }
     },
     {
@@ -59,10 +65,11 @@ export const Example = () => {
   const submit = async () => {
     const valid = await formData.doAllValidateImme()
     const validRes = await value10Form.doAllValidateImme()
+    const validAntd = await antdValueForm.doAllValidate()
     console.log('formData', formData.value)
     console.log('latestFormData', valid.data)
     console.log('submit:isValid: ', valid.isValid, validRes.isValid)
-    if (valid.isValid && validRes.isValid) {
+    if (valid.isValid && validRes.isValid && validAntd) {
       console.log('formValue', formData.value)
     }
   }
@@ -72,6 +79,13 @@ export const Example = () => {
   const value10Form = useSubFormData(formData.formData, 'value10', {
     haha: [Verifications.required(), Verifications.email()]
   })
+
+  const antdValueForm = useSubFormData(formData.formData, 'antdValue', {
+    num: [Verifications.min(1)],
+    arr: [Verifications.minLenth(1)],
+    str: [Verifications.required()]
+  })
+  const attrAntd = useAttr(antdValueForm)
 
   const attrValue10 = useAttr(value10Form)
 
@@ -211,6 +225,15 @@ export const Example = () => {
             手动校验:haha
           </Button>
         </div>
+        <div className="bg-gray-100 mt-4 p-4 rounded-md">
+          <h1 className="text-lg font-bold">Antd:</h1>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
+            <A_Input className="pb-2" {...attrAntd('str', Antd_5.A_Input)} />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('num')}>
+            <InputNumber className="pb-2" {...attrAntd('num', Antd_5.A_InputNumber)} />
+          </Antd_5.FormItem>
+        </div>
 
         <div className="mt-2">
           <Button color="primary" onClick={submit}>
@@ -223,6 +246,7 @@ export const Example = () => {
             onClick={() => {
               formData.reset()
               value10Form.formErrors.reset()
+              antdValueForm.formErrors.reset()
             }}
           >
             重置

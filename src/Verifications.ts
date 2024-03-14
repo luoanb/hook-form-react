@@ -97,7 +97,6 @@ export class Verifications {
     return {
       execute: async (value) => {
         try {
-          console.log('Number', Number(value))
           return Number(value) >= num
         } catch (error) {
           console.log(error, 'err')
@@ -106,7 +105,7 @@ export class Verifications {
         }
       },
       msg: msg || defaultMsg
-    } as IVerificationItem<string>
+    } as IVerificationItem<any>
   }
   /**
    * 数量最大值
@@ -125,7 +124,7 @@ export class Verifications {
         }
       },
       msg: msg || defaultMsg
-    } as IVerificationItem<string>
+    } as IVerificationItem<any>
   }
 
   /**

@@ -1,10 +1,11 @@
 import { SelectProps } from '@nextui-org/react'
 import { RenderAttrProps } from './useAttr'
+import { AttrBase } from './AttrBase'
 
 /**
  * NextUI 2.2 绑定组件属性 快速填写
  */
-export class NextUI_2_2 {
+export class NextUI_2_2 extends AttrBase {
   /**
    * 字符串值绑定(value/onValueChange)
    * @param props
@@ -26,8 +27,7 @@ export class NextUI_2_2 {
   static B_ValueChange = (props: RenderAttrProps<any>) => {
     return {
       ...this.N_ErrorBind(props),
-      value: props.value,
-      onChange: props.setValue
+      ...this.D_ValueChange(props)
     }
   }
 
@@ -38,18 +38,6 @@ export class NextUI_2_2 {
    */
   static N_ErrorBind = ({ isError, msg }: RenderAttrProps<any>) => {
     return { isInvalid: isError, errorMessage: msg }
-  }
-
-  /**
-   * HTML原生Input 绑定
-   * @param props Form表单上下文
-   * @returns
-   */
-  static D_Input = ({ value, setValue }: RenderAttrProps<string>) => {
-    return {
-      value,
-      onChange: (e: any) => setValue(e.target.value)
-    }
   }
 
   /**

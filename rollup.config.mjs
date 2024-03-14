@@ -17,7 +17,7 @@ export default [
       file: pkg.browser,
       format: 'umd'
     },
-    external: ['react', '@nextui-org/react'],
+    external: ['react', '@nextui-org/react', 'antd'],
     plugins: [
       typescript(),
       resolve(), // so Rollup can find `ms`
@@ -45,7 +45,7 @@ export default [
   // 声明
   {
     input: 'src/index.ts',
-    external: ['react'],
+    external: ['react', '@nextui-org/react', 'antd'],
     output: [
       {
         file: './dist/index.d.ts'

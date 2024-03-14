@@ -22,19 +22,20 @@
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@nextui-org/react": "^2.2.9",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/react": "^18.2.64",
+    "antd": "^5.15.2",
     "react": "^18.2.0",
     "rollup": "^4.12.1",
+    "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.36.0",
     "rollup-plugin-uglify": "^6.0.4",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.11",
-    "typescript": "^5.2.2",
-    "rollup-plugin-dts": "^6.1.0",
-    "@nextui-org/react": "^2.2.9"
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "doc": "typedoc",

@@ -28,14 +28,19 @@ export type RenderAttr<R, V> = (props: RenderAttrProps<V>) => R
 export const useAttr = <T>({ value, errors, pushValue }: IuseAttr<T>) => {
   const attr = <R, K extends keyof T = keyof T, V extends T[K] = T[K]>(
     key: K,
-    renderAttr: RenderAttr<R, V>
+    renderAttr?: RenderAttr<R, V>
   ) => {
-    return renderAttr({
+    const props = {
       value: value[key] as V,
       isError: errors[key]?.isInvalid,
       msg: errors[key]?.msg,
-      setValue: (value) => pushValue(key, value)
-    })
+      setValue: (value: V) => pushValue(key, value)
+    }
+    if (renderAttr) {
+      return renderAttr?.(props)
+    } else {
+      return props as R
+    }
   }
   attr.NextUI = NextUI_2_2
   return attr
