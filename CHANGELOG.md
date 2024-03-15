@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 2.2.0
+
+### Minor Changes
+
+- antd 适配完成
+
 ## 2.1.0
 
 ### Minor Changes
