@@ -174,7 +174,7 @@ export class Antd_5 extends AttrBase {
     return (props: RenderAttrProps<any>) => {
       return {
         ...this.A_Error(props),
-        value: props.value ? props.value?.map((it) => dayjs(it, dayjsFormat)) : [],
+        value: props.value ? props.value?.map((it: any) => dayjs(it, dayjsFormat)) : [],
         onChange: (date: any) => props.setValue(date?.map((it: any) => it.format(dayjsFormat)))
       }
     }
