@@ -3,6 +3,8 @@
   "out": "./docs",
   "name": "Hook Form React",
   "theme": "default",
+  "plugin": ["typedoc-material-theme"],
+  "themeColor": "#cb9820",
   "exclude": ["**/test/**/*"],
   "excludeExternals": true,
   "excludePrivate": true,

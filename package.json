@@ -36,6 +36,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/react": "^18.2.64",
     "antd": "^5.15.2",
+    "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "rollup": "^4.12.1",
     "rollup-plugin-dts": "^6.1.0",
@@ -44,8 +45,8 @@
     "rollup-plugin-uglify": "^6.0.4",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.11",
-    "typescript": "^5.2.2",
-    "dayjs": "^1.11.10"
+    "typedoc-material-theme": "^1.0.2",
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "doc": "typedoc",
