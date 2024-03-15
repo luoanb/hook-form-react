@@ -1,5 +1,11 @@
 # hook-form-react
 
+## 2.2.1
+
+### Patch Changes
+
+- build 内容分离
+
 ## 2.2.0
 
 ### Minor Changes
