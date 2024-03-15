@@ -11,9 +11,18 @@ import {
   Switch,
   Textarea
 } from '@nextui-org/react'
-import { animals } from './data'
-import { Input as A_Input, InputNumber } from 'antd'
-import { TimePicker } from 'antd'
+import { animals, treeData } from './data'
+import {
+  Input as A_Input,
+  InputNumber,
+  DatePicker,
+  TimePicker,
+  Select as A_Select,
+  Switch as A_Switch,
+  Checkbox as A_Checkbox,
+  Radio as A_Radio,
+  TreeSelect
+} from 'antd'
 
 export const Example = () => {
   const formData = useFormData(
@@ -35,7 +44,10 @@ export const Example = () => {
       antdValue: {
         str: '',
         num: 0,
-        arr: [],
+        arr: [] as string[],
+        arr2: [] as string[],
+        arr3: [] as string[],
+        arr4: [] as string[],
         bool: false
       }
     },
@@ -226,7 +238,7 @@ export const Example = () => {
             手动校验:haha
           </Button>
         </div>
-        <div className="bg-gray-100 mt-4 p-4 rounded-md">
+        <div className="border border-gray-200 mt-4 p-4 rounded-md">
           <h1 className="text-lg font-bold">Antd:</h1>
           <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
             <A_Input className="pb-2" {...attrAntd('str', Antd_5.A_Input)} />
@@ -235,7 +247,47 @@ export const Example = () => {
             <InputNumber className="pb-2" {...attrAntd('num', Antd_5.A_InputNumber)} />
           </Antd_5.FormItem>
           <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
-            <TimePicker className="pb-2" {...attrAntd('str', Antd_5.Create_A_TimePicker())} />
+            <TimePicker className="pb-2" {...attrAntd('str', Antd_5.F_A_TimePicker())} />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
+            <DatePicker className="pb-2" {...attrAntd('str', Antd_5.F_A_DatePicker())} />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('arr')}>
+            <DatePicker className="pb-2" {...attrAntd('arr', Antd_5.F_A_DatePickerMult())} />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('arr2')}>
+            <DatePicker.RangePicker
+              className="pb-2"
+              {...attrAntd('arr2', Antd_5.F_A_DateRangePicker())}
+            />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('arr2')}>
+            <A_Select
+              className="pb-2"
+              options={animals.map((it) => {
+                return { ...it, title: it.label }
+              })}
+              mode="multiple"
+              {...attrAntd('arr3', Antd_5.A_Select)}
+            />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
+            <A_Select
+              options={animals.map((it) => {
+                return { ...it, title: it.label }
+              })}
+              {...attrAntd('str', Antd_5.A_Select)}
+            />
+          </Antd_5.FormItem>
+          <A_Checkbox {...attrAntd('bool', Antd_5.A_Checkbox)} />
+          <A_Switch {...attrAntd('bool', Antd_5.A_Switch)} />
+          <A_Radio.Group {...attrAntd('str', Antd_5.A_RadioGroup)}>
+            {animals.map((it) => (
+              <A_Radio value={it.value}>{it.label}</A_Radio>
+            ))}
+          </A_Radio.Group>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
+            <TreeSelect treeData={treeData} {...attrAntd('str', Antd_5.A_TreeSelect)}></TreeSelect>
           </Antd_5.FormItem>
         </div>
 

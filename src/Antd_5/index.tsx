@@ -116,62 +116,70 @@ export class Antd_5 extends AttrBase {
   }
 
   /**
-   * Antd.DatePicker
+   * Antd.DatePicker 注入时需要以函数形式调用
    * @param props
    * @returns
    */
-  static A_DatePicker = (props: RenderAttrProps<string>) => {
-    return {
-      ...this.A_Error(props),
-      multiple: false,
-      value: props.value ? dayjs(props.value) : null,
-      onChange: (date: Dayjs, dateStr: string) => props.setValue(dateStr)
-    }
-  }
-
-  /**
-   * Antd.TimePicker, 注入时需要以函数形式调用
-   * @param dayjsFormat 时间格式化format 默认:'HH:mm:ss'
-   * @returns
-   */
-  static Create_A_TimePicker = (dayjsFormat = 'HH:mm:ss') => {
+  static F_A_DatePicker = ({ dayjsFormat = 'YYYY-MM-DD HH:mm:ss' } = {}) => {
     return (props: RenderAttrProps<string>) => {
       return {
         ...this.A_Error(props),
         multiple: false,
         value: props.value ? dayjs(props.value, dayjsFormat) : null,
-        onChange: (date: Dayjs, dateStr: any) => props.setValue(dateStr)
+        onChange: (date: Dayjs) => props.setValue(date.format(dayjsFormat))
       }
     }
   }
 
   /**
-   * Antd.DatePicker.multiple多选模式
-   * @param props
+   * Antd.TimePicker, 注入时需要以函数形式调用
+   * @param dayjsFormat 时间格式化format 默认:'YYYY-MM-DD HH:mm:ss'
    * @returns
    */
-  static A_DatePickerMult = (props: RenderAttrProps<string[]>) => {
-    return {
-      ...this.A_Error(props),
-      multiple: true,
-      showTime: false,
-      value: props.value ? props.value?.map((it) => dayjs(it)) : [],
-      onChange: (date: Dayjs[], dateStr: string[]) => props.setValue(dateStr)
+  static F_A_TimePicker = ({ dayjsFormat = 'YYYY-MM-DD HH:mm:ss' } = {}) => {
+    return (props: RenderAttrProps<string>) => {
+      return {
+        ...this.A_Error(props),
+        multiple: false,
+        value: props.value ? dayjs(props.value, dayjsFormat) : null,
+        onChange: (date: Dayjs) => props.setValue(date.format(dayjsFormat))
+      }
     }
   }
 
   /**
-   * Antd.DatePicker.RangePicker
+   * Antd.DatePicker.multiple多选模式 注入时需要以函数形式调用
    * @param props
    * @returns
    */
-  static A_DateRangePicker = (props: RenderAttrProps<string[]>) => {
-    return {
-      ...this.A_Error(props),
-      value: props.value ? props.value?.map((it) => dayjs(it)) : [],
-      onChange: (date: Dayjs[], dateStr: string[]) => props.setValue(dateStr)
+  static F_A_DatePickerMult = ({ dayjsFormat = 'YYYY-MM-DD HH:mm:ss' } = {}) => {
+    return (props: RenderAttrProps<string[]>) => {
+      return {
+        ...this.A_Error(props),
+        multiple: true,
+        showTime: false,
+        value: props.value ? props.value?.map((it) => dayjs(it, dayjsFormat)) : ([] as Dayjs[]),
+        onChange: (date: Dayjs[]) => props.setValue(date?.map((it) => it.format(dayjsFormat)))
+      }
     }
   }
+
+  /**
+   * Antd.DatePicker.RangePicker 注入时需要以函数形式调用
+   * @param props
+   * @returns
+   */
+  static F_A_DateRangePicker = ({ dayjsFormat = 'YYYY-MM-DD HH:mm:ss' } = {}) => {
+    // 元组类型不好匹配/索性不校验了
+    return (props: RenderAttrProps<any>) => {
+      return {
+        ...this.A_Error(props),
+        value: props.value ? props.value?.map((it) => dayjs(it, dayjsFormat)) : [],
+        onChange: (date: any) => props.setValue(date?.map((it: any) => it.format(dayjsFormat)))
+      }
+    }
+  }
+
   /**
    * Antd.RadioGroup
    * @param props
@@ -189,6 +197,17 @@ export class Antd_5 extends AttrBase {
    * @returns
    */
   static A_Select = (props: RenderAttrProps<any>) => {
+    return {
+      ...this.A_Error(props),
+      ...this.D_ValueChange(props)
+    }
+  }
+  /**
+   * Antd.TreeSelect
+   * @param props
+   * @returns
+   */
+  static A_TreeSelect = (props: RenderAttrProps<any>) => {
     return {
       ...this.A_Error(props),
       ...this.D_ValueChange(props)
