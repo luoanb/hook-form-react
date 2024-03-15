@@ -23,7 +23,7 @@ Developed using React Hooks and TypeScript, it aims to provide a simple, efficie
 
 - **v2.2.0**
 
-  1. **Antd UI**: Form components have been adapted. As of the current version, we have adapted two component libraries, `Next UI` and `Antd`. To import Antd components, use `import { Antd_5 } from "hook-form-react"`. All adaptations for Antd are included here and isolated from the core library. For usage examples, please refer to [Example: Stackblitz](https://stackblitz.com/~/github.com/luoanb/).
+  1. **Antd UI**: Form components have been adapted. As of the current version, we have adapted two component libraries, `Next UI` and `Antd`. To import Antd components, use `import { Antd_5 } from 'hook-form-react/Antd_5'`. All adaptations for Antd are included here and isolated from the core library. For usage examples, please refer to [Example: Stackblitz](https://stackblitz.com/~/github.com/luoanb/).
 
 - **v2.1.0**
 
