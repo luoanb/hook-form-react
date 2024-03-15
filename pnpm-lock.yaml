@@ -23,6 +23,9 @@ devDependencies:
   antd:
     specifier: ^5.15.2
     version: registry.npmjs.org/antd@5.15.2(react-dom@18.2.0)(react@18.2.0)
+  dayjs:
+    specifier: ^1.11.10
+    version: registry.npmjs.org/dayjs@1.11.10
   react:
     specifier: ^18.2.0
     version: registry.npmjs.org/react@18.2.0

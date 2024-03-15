@@ -13,6 +13,7 @@ import {
 } from '@nextui-org/react'
 import { animals } from './data'
 import { Input as A_Input, InputNumber } from 'antd'
+import { TimePicker } from 'antd'
 
 export const Example = () => {
   const formData = useFormData(
@@ -232,6 +233,9 @@ export const Example = () => {
           </Antd_5.FormItem>
           <Antd_5.FormItem className="mt-2" {...attrAntd('num')}>
             <InputNumber className="pb-2" {...attrAntd('num', Antd_5.A_InputNumber)} />
+          </Antd_5.FormItem>
+          <Antd_5.FormItem className="mt-2" {...attrAntd('str')}>
+            <TimePicker className="pb-2" {...attrAntd('str', Antd_5.Create_A_TimePicker())} />
           </Antd_5.FormItem>
         </div>
 
