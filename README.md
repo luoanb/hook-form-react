@@ -21,8 +21,11 @@ This library is a lightweight, dependency-free solution for form validation and 
 
 - **Next 后续版本计划**
 
-  1. **Antd 组件**：正在考虑是否要适配（当然不适配也是可用的），由于 Antd 自有表单的 Form.Item 和 Form 深度耦合，且基础表单需要内嵌在 Form.Item 中才有规范的显示效果。适配后开发体验感觉很难有 Antd 自由表单好，还在犹豫中
-  2. **MUI 组件**： 组件未自带表单验证，一般使用 react-hook-form（体验并不好），所以后续会进行适配，但由于当前企业并未使用该套组件库，所以优先级并不高
+  1. **MUI 组件**： 组件未自带表单验证，一般使用 react-hook-form（体验并不好），所以后续会进行适配，但由于当前企业并未使用该套组件库，所以优先级并不高
+
+- **v2.2.0**
+
+  1. **Antd 组件**：表单组件已经适配完成,截止到当前版本，(我们已经适配完` Next UI`、`Antd `两个组件库), `import { Antd_5 } from "hook-form-react"`,对于`antd`的适配的所有内容都包含在这里，和核心库隔离。使用示例请参考 [示例:Stackblitz](https://stackblitz.com/~/github.com/luoanb/)
 
 - **v2.1.0**
 
