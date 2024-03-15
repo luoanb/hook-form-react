@@ -11,8 +11,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      'hook-form-react': path.resolve(__dirname, '../src/index.ts')
+      '@': path.resolve(__dirname, 'src')
+      // 'hook-form-react': path.resolve(__dirname, '../src/index.ts'),
+      // 'hook-form-react/Antd_5': path.resolve(__dirname, '../src/Antd_5/index.tsx')
     }
   }
 })

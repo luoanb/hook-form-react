@@ -1,4 +1,5 @@
-import { Antd_5, useAttr, useFormData, useSubFormData, Verifications } from 'hook-form-react'
+import { useAttr, useFormData, useSubFormData, Verifications } from 'hook-form-react'
+import { Antd_5 } from 'hook-form-react/Antd_5'
 import {
   Button,
   Checkbox,

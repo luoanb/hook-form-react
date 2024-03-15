@@ -7,11 +7,40 @@ import { uglify } from 'rollup-plugin-uglify'
 import dts from 'rollup-plugin-dts'
 
 import pkg from './package.json' assert { type: 'json' }
+
+const defineLib = ({ input, outputName }) => {
+  return [
+    {
+      input,
+      external: ['react'],
+      output: [
+        { file: `dist/${outputName}.cjs.js`, format: 'cjs' },
+        { file: `dist/${outputName}.esm.js`, format: 'es' }
+      ],
+      plugins: [
+        typescript(),
+        commonjs(), // so Rollup can convert `ms` to an ES module
+        ...(process.env.NODE_ENV === 'development' ? [] : [terser(), uglify()])
+      ]
+    },
+
+    // 声明
+    {
+      input,
+      external: ['react', '@nextui-org/react', 'antd'],
+      output: [
+        {
+          file: `dist/${outputName}.d.ts`
+        }
+      ],
+      plugins: [dts()]
+    }
+  ]
+}
 /** @type {import('rollup').RollupOptions} */
 export default [
-  // browser-friendly UMD build
   {
-    input: 'src/index.ts',
+    input: 'src/forUmd.ts',
     output: {
       name: 'hookFormReact',
       file: pkg.browser,
@@ -25,32 +54,6 @@ export default [
       ...(process.env.NODE_ENV === 'development' ? [] : [terser(), uglify()])
     ]
   },
-
-  // CommonJS (for Node) and ES module (for bundlers) build.
-  // (We could have three entries in the configuration array
-  // instead of two, but it's quicker to generate multiple
-  // builds from a single configuration where possible, using
-  // an array for the `output` option, where we can specify
-  // `file` and `format` for each target)
-  {
-    input: 'src/index.ts',
-    external: ['react'],
-    output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' }
-    ],
-    plugins: [typescript()]
-  },
-
-  // 声明
-  {
-    input: 'src/index.ts',
-    external: ['react', '@nextui-org/react', 'antd'],
-    output: [
-      {
-        file: './dist/index.d.ts'
-      }
-    ],
-    plugins: [dts()]
-  }
+  ...defineLib({ input: 'src/Antd_5/index.tsx', outputName: 'Antd_5', name: 'hookFormReact' }),
+  ...defineLib({ input: 'src/index.ts', outputName: 'index', name: 'hookFormReact' })
 ]

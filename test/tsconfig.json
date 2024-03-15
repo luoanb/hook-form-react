@@ -21,8 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "hook-form-react": ["../src/index.ts"]
+      "@/*": ["src/*"]
+      // "hook-form-react": ["../src/index.ts"],
+      // "hook-form-react/Antd_5": ["../src/Antd_5/index.tsx"]
     }
   },
   "include": ["src"],

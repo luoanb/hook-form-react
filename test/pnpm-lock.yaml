@@ -17,6 +17,9 @@ dependencies:
   framer-motion:
     specifier: ^11.0.8
     version: 11.0.8(react-dom@18.2.0)(react@18.2.0)
+  hook-form-react:
+    specifier: file:../
+    version: file:..
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -5770,3 +5773,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  file:..:
+    resolution: {directory: .., type: directory}
+    name: hook-form-react
+    dev: false
