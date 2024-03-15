@@ -1,5 +1,5 @@
 {
-  "entryPoints": ["src/index.ts"],
+  "entryPoints": ["src/index.ts", "src/Antd_5/index.tsx"],
   "out": "./docs",
   "name": "Hook Form React",
   "theme": "default",
